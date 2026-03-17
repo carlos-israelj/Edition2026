@@ -18,7 +18,6 @@ hashtag #30DayChartChallenge
 [![](img/linkedin.svg)](https://www.linkedin.com/company/30daychartchallenge/)
 [<img src="img/Bluesky_Logo.svg" style="width: 3%; height: auto;"/>](https://bsky.app/profile/30daychartchall.bsky.social)
 
-```{=html}
 <!--## Topics
 
 ![](img/prompts.png)
@@ -30,7 +29,7 @@ Topics](list_prompts.md)
 
 * Day 12.  [Reporters Without Borders](https://rsf.org/en/index?year=2024)
 * Day 24. [UNICEF](https://data.unicef.org/ **/-->
-```
+
 
 ## Contributions
 

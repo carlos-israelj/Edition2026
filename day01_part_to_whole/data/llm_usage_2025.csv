@@ -1,0 +1,7 @@
+LLM_Model,Usage_Percentage,Category
+OpenAI GPT Models,81,Commercial
+Claude Sonnet,43,Commercial
+Gemini Flash,35,Commercial
+Other LLMs,15,Open Source/Other
+Meta Llama,12,Open Source
+Mistral,8,Open Source

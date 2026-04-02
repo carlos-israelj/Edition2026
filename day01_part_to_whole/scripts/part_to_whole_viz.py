@@ -57,9 +57,14 @@ ax3 = fig.add_subplot(gs[0, 2])
 # ============================================
 # Load professional color palette using pypalettes
 # Using 'Acadia' palette - perfect for qualitative data (showing groups)
+# Modified to enhance gray visibility
 # ============================================
 cmap = load_cmap("Acadia")
-colors = cmap.colors
+colors = list(cmap.colors)
+
+# Replace the light gray with a darker, more visible gray
+# Original Acadia has a very light gray that disappears on white background
+colors[3] = '#5D6D7E'  # Darker gray with better contrast for "Other LLMs"
 
 # ============================================
 # Step 2: Fill ax1 with a Donut Chart (using ax.pie())

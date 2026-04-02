@@ -32,7 +32,7 @@ fig, ax = plt.subplots(figsize=(12, 12), facecolor='white')
 # Load color palette
 cmap = load_cmap("Acadia")
 primary_color = cmap.colors[0]  # OpenAI GPT color
-secondary_color = '#E8E8E8'  # Light gray for non-users
+secondary_color = '#5D6D7E'  # Darker gray for better visibility (non-users)
 
 # ============================================
 # Create 10 human figures arranged in 2 rows

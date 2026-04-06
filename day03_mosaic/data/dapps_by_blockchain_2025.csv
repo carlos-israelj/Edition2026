@@ -1,0 +1,41 @@
+Blockchain,Category,Count,TVL_Billions
+Ethereum,DeFi,1250,85.4
+Ethereum,NFT,890,12.3
+Ethereum,Gaming,320,4.2
+Ethereum,Social,180,1.8
+Ethereum,Other,360,3.1
+BNB Chain,DeFi,780,28.6
+BNB Chain,NFT,420,3.4
+BNB Chain,Gaming,580,5.8
+BNB Chain,Social,120,0.9
+BNB Chain,Other,200,1.5
+Solana,DeFi,450,18.2
+Solana,NFT,680,8.7
+Solana,Gaming,340,6.3
+Solana,Social,210,2.1
+Solana,Other,180,1.4
+Polygon,DeFi,380,12.5
+Polygon,NFT,520,4.6
+Polygon,Gaming,890,7.9
+Polygon,Social,150,1.2
+Polygon,Other,160,0.8
+Arbitrum,DeFi,320,15.8
+Arbitrum,NFT,180,2.3
+Arbitrum,Gaming,140,1.9
+Arbitrum,Social,80,0.6
+Arbitrum,Other,120,0.9
+Base,DeFi,280,9.4
+Base,NFT,340,3.2
+Base,Gaming,420,4.1
+Base,Social,180,1.5
+Base,Other,140,0.7
+Avalanche,DeFi,210,8.3
+Avalanche,NFT,150,1.8
+Avalanche,Gaming,180,2.4
+Avalanche,Social,60,0.5
+Avalanche,Other,90,0.6
+Optimism,DeFi,190,7.2
+Optimism,NFT,120,1.5
+Optimism,Gaming,110,1.3
+Optimism,Social,70,0.4
+Optimism,Other,80,0.5

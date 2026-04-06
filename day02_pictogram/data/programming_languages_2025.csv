@@ -1,0 +1,7 @@
+Language,Usage_Percentage,Category,Ecosystem
+Solidity,90,Smart Contracts,Ethereum
+Rust,35,Systems/Web3,Solana/Polkadot
+JavaScript,28,Web3 dApps,Multi-chain
+Move,18,Resource-Oriented,Aptos/Sui
+Vyper,12,Smart Contracts,Ethereum
+Go,10,Blockchain Core,Multi-chain

@@ -5,14 +5,21 @@ Data Sources: DappRadar, DeFi Llama, State of the DApps
 #30DayChartChallenge
 
 Mosaic plot (Marimekko chart) showing:
-- Width: Total dApps per blockchain
-- Height: Category distribution within each blockchain
-- Color: Category type
+- Width: Total dApps per blockchain (proportional)
+- Height: Category distribution within each blockchain (proportional)
+- Color: Category type (monochromatic earth tone palette)
 
 Skills applied:
-- matplotlib: Complex mosaic layouts, custom patches
-- data-visualization: Two-dimensional proportion representation
-- statsmodels: Mosaic plot implementation
+- matplotlib: Complex mosaic layouts, custom Rectangle patches
+- data-visualization: Two-dimensional proportion representation, accessibility principles
+- data-viz-plots: Mosaic plots (Marimekko charts)
+
+Design principles applied:
+- Colorblind-safe monochromatic palette
+- Minimalist typography (bold sans-serif + italic serif)
+- Vintage aesthetic with earth tones
+- Clear data labels showing percentages
+- Proportional layout calculations
 """
 
 import pandas as pd
@@ -38,36 +45,42 @@ INSIGHT_FONTSIZE = 11
 SOURCE_FONTSIZE = 10
 
 # Figure dimensions
-FIGURE_WIDTH = 20
+FIGURE_WIDTH = 24
 FIGURE_HEIGHT = 12
 
-# Colors - Accessible palette for categories
+# Colors - Monochromatic earth tone palette (colorblind-safe, inspired by vintage design)
+# Sequential palette from dark to light for ordered categorical data
 CATEGORY_COLORS = {
-    'DeFi': '#2E86AB',      # Blue - Financial stability
-    'NFT': '#A23B72',       # Purple - Creativity/Art
-    'Gaming': '#F18F01',    # Orange - Entertainment
-    'Social': '#C73E1D',    # Red - Connection
-    'Other': '#6A994E'      # Green - Growth/Other
+    'DeFi': '#1a1a1a',      # Near black - Darkest (most important category)
+    'NFT': '#3a4a2f',       # Dark olive green
+    'Gaming': '#5a6a4f',    # Medium olive
+    'Social': '#7a8a6f',    # Sage green
+    'Other': '#9aaa8f'      # Light sage - Lightest
 }
 
-# Blockchain brand colors for labels
+# Background color - Vintage aesthetic
+BACKGROUND_COLOR = '#D9D4BA'  # Warm beige/tan for professional vintage look
+
+# Blockchain colors matching vintage earth tone design
 BLOCKCHAIN_COLORS = {
-    'Ethereum': '#627EEA',
-    'BNB Chain': '#F3BA2F',
-    'Solana': '#14F195',
-    'Polygon': '#8247E5',
-    'Arbitrum': '#28A0F0',
-    'Base': '#0052FF',
-    'Avalanche': '#E84142',
-    'Optimism': '#FF0420'
+    'Ethereum': '#3a4a2f',      # Dark olive green
+    'BNB Chain': '#5a6a4f',     # Medium olive
+    'Polygon': '#3a4a2f',       # Dark olive green
+    'Solana': '#5a6a4f',        # Medium olive
+    'Arbitrum': '#3a4a2f',      # Dark olive green
+    'Base': '#5a6a4f',          # Medium olive
+    'Avalanche': '#3a4a2f',     # Dark olive green
+    'Optimism': '#5a6a4f'       # Medium olive
 }
 
-# Set style
+# Set style - Professional publication-quality settings
 plt.rcParams['font.family'] = 'sans-serif'
-plt.rcParams['font.size'] = 11
-plt.rcParams['figure.dpi'] = 100
-plt.rcParams['savefig.dpi'] = 300
-plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['font.size'] = 11  # Minimum readable size (accessibility)
+plt.rcParams['figure.dpi'] = 100  # Screen display
+plt.rcParams['savefig.dpi'] = 300  # Publication quality
+plt.rcParams['savefig.bbox'] = 'tight'  # Remove extra whitespace
+plt.rcParams['axes.spines.top'] = False  # Reduce chart junk
+plt.rcParams['axes.spines.right'] = False
 
 # ============================================
 # DATA LOADING AND VALIDATION
@@ -135,8 +148,8 @@ blockchain_order = blockchain_totals.index.tolist()
 # CREATE MOSAIC PLOT
 # ============================================
 
-fig, ax = plt.subplots(figsize=(FIGURE_WIDTH, FIGURE_HEIGHT), facecolor='white')
-ax.set_facecolor('white')
+fig, ax = plt.subplots(figsize=(FIGURE_WIDTH, FIGURE_HEIGHT), facecolor=BACKGROUND_COLOR)
+ax.set_facecolor(BACKGROUND_COLOR)
 
 # Starting position
 x_start = 0
@@ -166,24 +179,20 @@ for blockchain in blockchain_order:
         # Create rectangle
         rect = Rectangle((x_start, y_start), width, height,
                          facecolor=CATEGORY_COLORS[category],
-                         edgecolor='white',
+                         edgecolor=BACKGROUND_COLOR,
                          linewidth=2.5,
-                         alpha=0.85)
+                         alpha=1.0)
         ax.add_patch(rect)
 
         # Add percentage label if rectangle is large enough
         if height > 0.08 and width > 0.06:  # Only label if big enough
             percentage = (count / blockchain_total) * 100
             ax.text(x_start + width/2, y_start + height/2,
-                   f'{percentage:.0f}%',
+                   f'{percentage:.1f}%',
                    ha='center', va='center',
-                   fontsize=PERCENTAGE_FONTSIZE,
+                   fontsize=PERCENTAGE_FONTSIZE + 2,
                    weight='bold',
-                   color='white',
-                   bbox=dict(boxstyle='round,pad=0.3',
-                            facecolor='black',
-                            alpha=0.3,
-                            edgecolor='none'))
+                   color='white')
 
         mosaic_data.append({
             'blockchain': blockchain,
@@ -198,7 +207,7 @@ for blockchain in blockchain_order:
 
         y_start += height
 
-    # Add blockchain label at bottom
+    # Add blockchain label at bottom (all horizontal, same font size)
     ax.text(x_start + width/2, -0.08,
            blockchain,
            ha='center', va='top',
@@ -213,7 +222,8 @@ for blockchain in blockchain_order:
            ha='center', va='top',
            fontsize=CATEGORY_FONTSIZE,
            style='italic',
-           color='#5D6D7E')
+           color='#5D6D7E',
+           rotation=0)
 
     x_start += width
 
@@ -221,66 +231,49 @@ for blockchain in blockchain_order:
 # TITLES AND ANNOTATIONS
 # ============================================
 
-# Main title
-fig.text(0.5, 0.96, 'Blockchain dApps Ecosystem Distribution (2025)',
-         ha='center', fontsize=TITLE_FONTSIZE, weight='bold', color='#2C3E50')
+# Main title - Bold sans-serif (states the content)
+fig.text(0.5, 0.96, 'BLOCKCHAIN dAPPS',
+         ha='center', fontsize=TITLE_FONTSIZE + 8, weight='heavy', color='#1a1a1a',
+         family='sans-serif')
 
-# Subtitle
-fig.text(0.5, 0.93,
-         'Mosaic chart showing dApp distribution across blockchains and categories • Width = Total dApps • Height = Category proportion',
-         ha='center', fontsize=SUBTITLE_FONTSIZE, style='italic', color='#5D6D7E')
+# Subtitle - Italic script-style (vintage aesthetic)
+fig.text(0.5, 0.925, 'by category',
+         ha='center', fontsize=SUBTITLE_FONTSIZE + 8, style='italic', color='#2C3E50',
+         family='serif')
 
-# Legend - Category colors
+# Description - Clear context about the visualization
+fig.text(0.5, 0.89,
+         'Where different blockchains distribute their dApps in 2025',
+         ha='center', fontsize=SUBTITLE_FONTSIZE, color='#4a4a4a')
+
+# Legend - Category colors (simplified, matching reference style)
+# Order categories from darkest to lightest (sequential palette)
+# Accessibility: Legend provides alternative to color-only encoding
+category_order = ['DeFi', 'NFT', 'Gaming', 'Social', 'Other']
 legend_elements = [mpatches.Patch(facecolor=CATEGORY_COLORS[cat],
-                                 edgecolor='white',
-                                 label=f'{cat} ({category_totals[cat]:,} dApps)',
-                                 linewidth=2)
-                  for cat in category_totals.index]
+                                 edgecolor='none',
+                                 label=cat)
+                  for cat in category_order if cat in category_totals.index]
 
 legend = ax.legend(handles=legend_elements,
-                  loc='upper left',
-                  bbox_to_anchor=(0.02, 0.98),
-                  frameon=True,
-                  fancybox=True,
-                  shadow=True,
-                  fontsize=CATEGORY_FONTSIZE,
-                  title='Category Distribution',
-                  title_fontsize=LABEL_FONTSIZE)
-legend.get_frame().set_facecolor('white')
-legend.get_frame().set_alpha(0.95)
+                  loc='center right',
+                  bbox_to_anchor=(1.08, 0.5),
+                  frameon=False,
+                  fontsize=CATEGORY_FONTSIZE + 1,
+                  title='Categories')
+legend.get_frame().set_facecolor(BACKGROUND_COLOR)
+legend.get_frame().set_alpha(1.0)
 
-# Key insights
-dominant_blockchain = blockchain_order[0]
-dominant_count = blockchain_totals.iloc[0]
-dominant_category = category_totals.index[0]
+# Removed key insights box to match cleaner reference design
 
-insight_text = (
-    f"Key Insights:\n"
-    f"• {dominant_blockchain} leads with {dominant_count:,} dApps ({(dominant_count/total_dapps)*100:.1f}% of total ecosystem)\n"
-    f"• {dominant_category} dominates across all chains with {category_totals.iloc[0]:,} applications\n"
-    f"• Polygon shows highest gaming focus with {df[(df['Blockchain']=='Polygon') & (df['Category']=='Gaming')]['Count'].values[0]} gaming dApps\n"
-    f"• Total: {total_dapps:,} dApps tracked across {len(blockchain_order)} major blockchains"
-)
-
-fig.text(0.5, 0.12, insight_text,
-         ha='center', va='top',
-         fontsize=INSIGHT_FONTSIZE,
-         color='#34495E',
-         bbox=dict(boxstyle='round,pad=0.8',
-                  facecolor='#E8F8F5',
-                  alpha=0.9,
-                  edgecolor='#16A085',
-                  linewidth=1.5))
-
-# Data sources
+# Data sources and attribution
 fig.text(0.5, 0.02,
-         'Data Sources: DappRadar (www.dappradar.com) | DeFi Llama | State of the DApps\n' +
-         '#30DayChartChallenge Day 3: Mosaic',
-         ha='center', fontsize=SOURCE_FONTSIZE, style='italic', color='#7F8C8D')
+         'Data source: DappRadar, DeFi Llama, State of the DApps (2024) | Visualization: Your Name | #30DayChartChallenge 2026',
+         ha='center', fontsize=SOURCE_FONTSIZE, style='italic', color='#6a6a6a')
 
 # Configure axes
 ax.set_xlim(0, 1)
-ax.set_ylim(-0.18, 1)
+ax.set_ylim(-0.16, 1)
 ax.axis('off')
 
 # ============================================
@@ -294,17 +287,17 @@ print('\n=== Saving visualizations ===')
 try:
     # PNG format
     output_png = os.path.join(output_dir, 'day03_mosaic_blockchain_dapps.png')
-    plt.savefig(output_png, dpi=300, bbox_inches='tight', facecolor='white', format='png')
+    plt.savefig(output_png, dpi=300, bbox_inches='tight', facecolor=BACKGROUND_COLOR, format='png')
     print(f'✓ PNG saved: {output_png}')
 
     # PDF format
     output_pdf = os.path.join(output_dir, 'day03_mosaic_blockchain_dapps.pdf')
-    plt.savefig(output_pdf, bbox_inches='tight', facecolor='white', format='pdf')
+    plt.savefig(output_pdf, bbox_inches='tight', facecolor=BACKGROUND_COLOR, format='pdf')
     print(f'✓ PDF saved: {output_pdf}')
 
     # SVG format
     output_svg = os.path.join(output_dir, 'day03_mosaic_blockchain_dapps.svg')
-    plt.savefig(output_svg, bbox_inches='tight', facecolor='white', format='svg')
+    plt.savefig(output_svg, bbox_inches='tight', facecolor=BACKGROUND_COLOR, format='svg')
     print(f'✓ SVG saved: {output_svg}')
 
 except Exception as e:
